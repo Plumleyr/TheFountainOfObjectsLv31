@@ -6,50 +6,48 @@ using System.Threading.Tasks;
 
 namespace TheFountainOfObjectsLv31
 {
-    public class Cave(int rows, int cols)
+    public class Cave
     {
-        public Room[,] CaveRooms { get; set; } = new Room[rows, cols];
+        public CaveSizes CaveSize { get; init; }
+        public Room[,] CaveRooms { get; private set; }
+        public Position Entrance { get; private set; }
+        public Position Fountain { get; private set; }
+        public int Rows { get; }
+        public int Cols { get; }
+        
+        public Cave(CaveSizes caveSize)
+        {
+            CaveSize = caveSize;
+            (Rows, Cols) = CaveUtils.GetDimensions(CaveSize);
+            CaveRooms = new Room[Rows, Cols];
+            Fountain = CaveUtils.FountainLocation(this);
+            Entrance = CaveUtils.EntranceLocation(this);
+            SetRooms();
+        }
 
-        public void SetRooms()
+        private void SetRooms()
         {
 
-            var(pitRow, pitCol) = PitLocation();
+            var pitLocationList = CaveUtils.PitLocation(this);
 
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
-                for (int j = 0; j < cols; j++)
+                for (int j = 0; j < Cols; j++)
                 {
-                    if (i == 2 && j == 2)
-                        CaveRooms[i, j] = new Room(i, j, new Fountain());
-                    else if (i == pitRow && j == pitCol)
+                    if (pitLocationList.Contains(new Position(i, j)))
                         CaveRooms[i, j] = new Room(i, j, new Pit());
+                    else if (i == Fountain.Row && j == Fountain.Col)
+                        CaveRooms[i, j] = new Room(i, j, new Fountain());
                     else
                         CaveRooms[i, j] = new Room(i, j, new None());
                 }
             }
         }
 
-        public (int pitRow, int pitCol) PitLocation()
-        {
-            Random rand = new();
-
-            int pitRow;
-            int pitCol;
-
-            do
-            {
-                pitRow = rand.Next(rows);
-                pitCol = rand.Next(cols);
-
-            } while ((pitRow == 0 && pitCol == 0) || (pitRow == 2 && pitCol == 2));
-
-            return (pitRow, pitCol);
-        }
-
         public void CheckAdjRooms(Room currRoom)
         {
-            int currRow = currRoom.Row;
-            int currCol = currRoom.Col;
+            int currRow = currRoom.Position.Row;
+            int currCol = currRoom.Position.Row;
 
             List<Room> adjRooms = [];
 
@@ -66,5 +64,12 @@ namespace TheFountainOfObjectsLv31
                 }
             }
         }
+    }
+
+    public enum CaveSizes
+    {
+        Small = 1,
+        Medium = 2,
+        Large = 3
     }
 }

@@ -13,16 +13,16 @@ namespace TheFountainOfObjectsLv31
             switch (Moves)
             {
                 case Moves.Up:
-                    player.Row--;
+                    player.MoveBy(-1, 0);
                     break;
                 case Moves.Right:
-                    player.Col++;
+                    player.MoveBy(0, 1);
                     break;
                 case Moves.Down:
-                    player.Row++;
+                    player.MoveBy(1, 0);
                     break;
                 case Moves.Left:
-                    player.Col--;
+                    player.MoveBy(0, -1);
                     break;
                 case Moves.EnableFountain:
                     obstacle.Interaction(player);
@@ -32,7 +32,7 @@ namespace TheFountainOfObjectsLv31
             };
         }
 
-        public static List<Moves> AvailableMoves(Room[,] cave, Player player)
+        public static List<Moves> AvailableMoves(Cave cave, Player player)
         {
             Moves[] moves = Enum.GetValues<Moves>();
 
@@ -42,13 +42,13 @@ namespace TheFountainOfObjectsLv31
             int[] dRows = [-1, 1, 0, 0];
             int[] dCols = [0, 0, -1, 1];
 
-            int maxRows = cave.GetLength(0);
-            int maxCols = cave.GetLength(1);
+            int maxRows = cave.CaveRooms.GetLength(0);
+            int maxCols = cave.CaveRooms.GetLength(1);
 
             for(int i = 0; i < 4; i++)
             {
-                int newRow = dRows[i] + player.Row;
-                int newCol = dCols[i] + player.Col;
+                int newRow = dRows[i] + player.Position.Row;
+                int newCol = dCols[i] + player.Position.Col;
 
                 if(newRow >= 0 && newRow < maxRows && newCol >= 0 && newCol < maxCols)
                 {
@@ -57,7 +57,7 @@ namespace TheFountainOfObjectsLv31
 
             }
 
-            if(player.Row == 2 && player.Col == 2 && !player.RestoredFountain)
+            if(player.Position.Row == cave.Fountain.Row && player.Position.Col == cave.Fountain.Col && !player.RestoredFountain)
             {
                 MovesList.Add(Moves.EnableFountain);
             }

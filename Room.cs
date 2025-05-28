@@ -8,9 +8,7 @@ namespace TheFountainOfObjectsLv31
 {
     public class Room(int row, int col, Obstacle obstacle)
     {
-        public int Row { get; init; } = row;
-
-        public int Col { get; init; } = col;
+        public Position Position { get; init; } = new Position(row, col);
 
         public Obstacle Obstacle { get; init; } = obstacle;
     }

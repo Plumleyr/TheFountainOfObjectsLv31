@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheFountainOfObjectsLv31
 {
-    public class Player
+    public class Player(int startingRow, int startingCol)
     {
         public string Name = "Adventurer";
 
@@ -14,8 +14,11 @@ namespace TheFountainOfObjectsLv31
 
         public bool Alive { get; set; } = true;
 
-        public int Row { get; set; } = 0;
+        public Position Position { get; set; } = new(startingRow, startingCol);
 
-        public int Col { get; set; } = 0;
+        public void MoveBy(int dRow, int dCol)
+        {
+            Position = new Position(Position.Row + dRow, Position.Col + dCol);
+        }
     }
 }
