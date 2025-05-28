@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,6 @@ namespace TheFountainOfObjectsLv31
         public void Run()
         {
             GameUtils.DisplayStartingDialogue(this);
-            Console.WriteLine($"{Cave.Fountain.Row}, {Cave.Fountain.Col}");
 
             while (GameStatus == GameStatus.InProgress)
             {
@@ -49,10 +49,10 @@ namespace TheFountainOfObjectsLv31
 
                     int input = int.TryParse(Console.ReadLine(), out int value) ? value : -1;
 
-                    if (input >= 0 && input < movesList.Count)
+                    if (Enum.IsDefined(typeof(Moves), input) && movesList.Contains(((Moves)input, input)))
                     {
                         Console.Clear();
-                        Move.MovePlayer(movesList[input], Player, currRoom.Obstacle);
+                        Move.MovePlayer((Moves)input, Player, currRoom.Obstacle);
                         GameStatus = GameUtils.CheckGameStatus(this);
 
                         validResponse = true;

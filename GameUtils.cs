@@ -40,7 +40,7 @@ namespace TheFountainOfObjectsLv31
             } while (input < 0 || input >= caveSizesArr.Length);
 
             Console.Clear();
-            return (CaveSizes)(input+1);
+            return (CaveSizes)input;
         } 
 
         public static GameStatus CheckGameStatus(Game game)
@@ -54,11 +54,11 @@ namespace TheFountainOfObjectsLv31
             return GameStatus.InProgress;
         }
 
-        public static void DisplayMoves(List<Moves> movesList)
+        public static void DisplayMoves(List<(Moves move, int moveValue)> movesList)
         {
             for (int i = 0; i < movesList.Count; i++)
             {
-                Console.WriteLine($"{i}: {movesList[i]}");
+                Console.WriteLine($"{movesList[i].moveValue}: {movesList[i].move}");
             }
         }
 

@@ -69,7 +69,7 @@ namespace TheFountainOfObjectsLv31
             int pitRow;
             int pitCol;
 
-            while(pitLocationList.Count < (int)cave.CaveSize)
+            while(pitLocationList.Count < ((int)cave.CaveSize + 1))
             {
                 pitRow = rand.Next(cave.Rows);
                 pitCol = rand.Next(cave.Cols);

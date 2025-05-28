@@ -68,8 +68,8 @@ namespace TheFountainOfObjectsLv31
 
     public enum CaveSizes
     {
-        Small = 1,
-        Medium = 2,
-        Large = 3
+        Small,
+        Medium,
+        Large
     }
 }
