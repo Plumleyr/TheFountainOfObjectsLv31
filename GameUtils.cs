@@ -9,6 +9,14 @@ namespace TheFountainOfObjectsLv31
     public class GameUtils
     {
 
+        public static void DisplayElaspedTime(DateTime startTime)
+        {
+            DateTime endTime = DateTime.Now;
+            TimeSpan timeLeft = endTime - startTime;
+
+            Console.WriteLine($"This run lasted {timeLeft.Hours} hours, {timeLeft.Minutes} minutes and {timeLeft.Seconds} seconds.");
+        }
+
         public static void DisplayStartingDialogue(Game game)
         {
             Console.WriteLine("You enter the Cavern of Objects, a maze of rooms filled with dangerous pits in search of the Fountain of Objects.");

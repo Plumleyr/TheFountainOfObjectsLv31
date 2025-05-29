@@ -9,6 +9,8 @@ namespace TheFountainOfObjectsLv31
 {
     public class Game
     {
+        public DateTime StartTime { get; }
+
         public Player Player { get; private set; } 
 
         public Cave Cave { get; private set; }
@@ -17,6 +19,7 @@ namespace TheFountainOfObjectsLv31
 
         public  Game()
         {
+            StartTime = DateTime.Now;
             Cave = new(GameUtils.SelectCaveSize());
             Player = new(Cave.Entrance.Row, Cave.Entrance.Col);
         }
@@ -66,6 +69,7 @@ namespace TheFountainOfObjectsLv31
             }
 
             GameUtils.DisplayEndMessage(GameStatus);
+            GameUtils.DisplayElaspedTime(StartTime);
         }
     }
 

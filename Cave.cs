@@ -47,7 +47,7 @@ namespace TheFountainOfObjectsLv31
         public void CheckAdjRooms(Room currRoom)
         {
             int currRow = currRoom.Position.Row;
-            int currCol = currRoom.Position.Row;
+            int currCol = currRoom.Position.Col;
 
             List<Room> adjRooms = [];
 
